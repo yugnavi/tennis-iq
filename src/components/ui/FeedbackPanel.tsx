@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react';
+import { sfx } from '../../lib/audio/music';
 import type { AnswerResult } from '../../types';
 import { ASSETS, signed } from './assets';
 import { Button } from './Button';
@@ -35,7 +36,8 @@ export function FeedbackPanel({
   const key = result ? `${result.challengeId}:${result.chosenOptionId}` : '';
 
   useEffect(() => {
-    if (!key) return;
+    if (!key || !result) return;
+    sfx.answer(result.isCorrect);
     if (autoFocusNext && nextRef.current) {
       nextRef.current.focus();
     } else {

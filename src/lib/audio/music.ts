@@ -199,3 +199,71 @@ class MusicPlayer {
 }
 
 export const music = new MusicPlayer();
+
+type SfxKind = 'click' | 'correct' | 'wrong';
+
+class SfxPlayer {
+  private ctx: AudioContext | null = null;
+  private master: GainNode | null = null;
+
+  get supported() {
+    return !!audioContextCtor();
+  }
+
+  play(kind: SfxKind) {
+    if (!this.supported) return;
+    const ctx = this.ensure();
+    if (!ctx || !this.master) return;
+    if (ctx.state !== 'running') void ctx.resume();
+
+    const t = ctx.currentTime + 0.005;
+    if (kind === 'click') {
+      this.tone('square', 880, t, 0.045, 0.12, 520);
+      return;
+    }
+    if (kind === 'correct') {
+      this.tone('square', 523.25, t, 0.075, 0.12);
+      this.tone('square', 659.25, t + 0.07, 0.08, 0.12);
+      this.tone('square', 783.99, t + 0.14, 0.12, 0.14);
+      return;
+    }
+    this.tone('sawtooth', 220, t, 0.11, 0.12, 164.81);
+    this.tone('square', 146.83, t + 0.1, 0.16, 0.1, 110);
+  }
+
+  click() {
+    this.play('click');
+  }
+
+  answer(correct: boolean) {
+    this.play(correct ? 'correct' : 'wrong');
+  }
+
+  private ensure() {
+    if (this.ctx) return this.ctx;
+    const AudioCtx = audioContextCtor();
+    if (!AudioCtx) return null;
+    this.ctx = new AudioCtx();
+    this.master = this.ctx.createGain();
+    this.master.gain.value = 0.18;
+    this.master.connect(this.ctx.destination);
+    return this.ctx;
+  }
+
+  private tone(type: OscillatorType, hz: number, t: number, dur: number, level: number, endHz = hz) {
+    const ctx = this.ctx!;
+    const osc = ctx.createOscillator();
+    const env = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(hz, t);
+    if (endHz !== hz) osc.frequency.exponentialRampToValueAtTime(endHz, t + dur);
+    env.gain.setValueAtTime(0.001, t);
+    env.gain.exponentialRampToValueAtTime(level, t + 0.01);
+    env.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    osc.connect(env).connect(this.master!);
+    osc.start(t);
+    osc.stop(t + dur + 0.02);
+  }
+}
+
+export const sfx = new SfxPlayer();

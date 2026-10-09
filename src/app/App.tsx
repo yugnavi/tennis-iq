@@ -1,6 +1,7 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { SessionProvider } from './session';
+import { sfx } from '../lib/audio/music';
 import type { GameService } from '../types';
 
 const Landing = lazy(() => import('../pages/Landing'));
@@ -48,6 +49,17 @@ export function AppRoutes() {
 }
 
 export default function App({ service }: { service?: GameService }) {
+  useEffect(() => {
+    const playForInteractiveClick = (event: PointerEvent) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const interactive = target?.closest('button,a,input,select,textarea,[role="button"],[tabindex]:not([tabindex="-1"])');
+      if (!interactive || interactive.hasAttribute('disabled') || interactive.getAttribute('aria-disabled') === 'true') return;
+      sfx.click();
+    };
+    window.addEventListener('pointerdown', playForInteractiveClick, { capture: true });
+    return () => window.removeEventListener('pointerdown', playForInteractiveClick, { capture: true });
+  }, []);
+
   return (
     <SessionProvider service={service}>
       <BrowserRouter basename={import.meta.env.BASE_URL}>

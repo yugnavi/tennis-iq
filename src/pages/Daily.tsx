@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ROUTES } from '../app/App';
 import { CourtView } from '../components/court';
+import { sfx } from '../lib/audio/music';
 import {
   answerStateFor,
   Button,
@@ -131,6 +132,10 @@ function CompactResult({
 }) {
   const correct = challenge.options.find((option) => option.id === result.correctOptionId);
   const chosen = challenge.options.find((option) => option.id === result.chosenOptionId);
+  useEffect(() => {
+    sfx.answer(result.isCorrect);
+  }, [result.challengeId, result.chosenOptionId, result.isCorrect]);
+
   return (
     <section
       aria-label="Answer feedback"
