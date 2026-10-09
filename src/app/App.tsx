@@ -50,7 +50,7 @@ export function AppRoutes() {
 export default function App({ service }: { service?: GameService }) {
   return (
     <SessionProvider service={service}>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AppRoutes />
       </BrowserRouter>
     </SessionProvider>
