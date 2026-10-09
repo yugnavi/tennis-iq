@@ -11,6 +11,14 @@ const LOOKAHEAD_S = 0.12;
 const TICK_MS = 25;
 const VOLUME = 0.05;
 
+type AudioWindow = Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext };
+
+function audioContextCtor(): typeof AudioContext | undefined {
+  if (typeof window === 'undefined') return undefined;
+  const w = window as AudioWindow;
+  return w.AudioContext ?? w.webkitAudioContext;
+}
+
 // One bar per chord (C – Am – F – G), eight eighth-notes per bar. MIDI numbers; null = rest.
 const MELODY: (number | null)[] = [
   76, 79, 84, 79, 76, 74, 72, 74,
@@ -71,7 +79,7 @@ class MusicPlayer {
   }
 
   get supported() {
-    return typeof window !== 'undefined' && 'AudioContext' in window;
+    return !!audioContextCtor();
   }
 
   isOn() {
@@ -99,7 +107,9 @@ class MusicPlayer {
   private start() {
     if (!this.supported || this.timer) return;
     if (!this.ctx) {
-      this.ctx = new AudioContext();
+      const AudioCtx = audioContextCtor();
+      if (!AudioCtx) return;
+      this.ctx = new AudioCtx();
       this.master = this.ctx.createGain();
       this.master.connect(this.ctx.destination);
       const len = Math.floor(this.ctx.sampleRate * 0.05);
@@ -107,7 +117,7 @@ class MusicPlayer {
       const data = this.noise.getChannelData(0);
       for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
     }
-    void this.ctx.resume();
+    if (this.ctx.state !== 'running') void this.ctx.resume();
     const t = this.ctx.currentTime;
     this.master!.gain.cancelScheduledValues(t);
     this.master!.gain.setValueAtTime(0, t);
