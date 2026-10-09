@@ -1,0 +1,614 @@
+@import 'tailwindcss';
+
+/* Design tokens: v3 pixel-pack palette (tennis-iq-v3/brand-tokens.json) — navy, cream, tennis green, gold. */
+@theme {
+  --color-navy-950: #0a151e;
+  --color-navy-900: #101f2b;
+  --color-navy-800: #192839;
+  --color-navy-700: #24374b;
+  --color-court-blue: #246d9d;
+  --color-court-green: #1f8a6f;
+  --color-cta-500: #13aa79;
+  --color-cta-600: #0e936a;
+  --color-cta-700: #08795b;
+  --color-ball: #d8f046;
+  --color-card: #fff4df;
+  --color-gold: #f2b544;
+  --color-card-line: #ecdcbc;
+  --color-ink: #192839;
+  --color-correct: #08795b;
+  --color-wrong: #c2412d;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-pixel: 'Pixelify Sans', system-ui, sans-serif;
+}
+
+html,
+body {
+  background: var(--color-navy-900);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+}
+
+.pixel-page {
+  background:
+    linear-gradient(90deg, rgb(255 244 223 / 0.025) 1px, transparent 1px) 0 0 / 16px 16px,
+    linear-gradient(0deg, rgb(255 244 223 / 0.02) 1px, transparent 1px) 0 0 / 16px 16px,
+    radial-gradient(circle at 50% -12%, rgb(31 138 111 / 0.28), transparent 36rem),
+    var(--color-navy-900);
+}
+
+.pixel-page-court {
+  background:
+    linear-gradient(180deg, rgb(10 21 30 / 0.54) 0, rgb(10 21 30 / 0.24) 32%, rgb(10 21 30 / 0.64) 100%),
+    radial-gradient(circle at 50% 18%, rgb(255 244 223 / 0.16), transparent 18rem),
+    var(--page-court-bg),
+    var(--color-navy-900);
+  background-position: center top, center top, center top, center top;
+  background-repeat: no-repeat;
+  background-size: auto, auto, cover, auto;
+}
+
+.pixel-heading {
+  font-family: var(--font-pixel);
+  letter-spacing: 0.04em;
+  text-shadow: 0 3px 0 var(--color-navy-950);
+}
+
+.pixel-card {
+  --px: 4px;
+  border-radius: 0;
+  border: 0;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.35), transparent 38%),
+    var(--color-card);
+  box-shadow:
+    inset 0 var(--px) 0 0 #fff8e8,
+    inset 0 calc(var(--px) * -1) 0 0 #d5b77a,
+    0 calc(var(--px) * -1) 0 0 var(--color-navy-950),
+    0 var(--px) 0 0 var(--color-navy-950),
+    calc(var(--px) * -1) 0 0 0 var(--color-navy-950),
+    var(--px) 0 0 0 var(--color-navy-950),
+    0 calc(var(--px) * 3) 0 0 rgb(10 21 30 / 0.55);
+}
+
+.pixel-card-green {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.16), transparent 42%),
+    #1f7258;
+  color: var(--color-card);
+  box-shadow:
+    inset 0 4px 0 0 rgb(255 255 255 / 0.14),
+    inset 0 -4px 0 0 #164735,
+    0 -4px 0 0 #0a151e,
+    0 4px 0 0 #0a151e,
+    -4px 0 0 0 #0a151e,
+    4px 0 0 0 #0a151e,
+    0 12px 0 0 rgb(10 21 30 / 0.5);
+}
+
+.pixel-stat {
+  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgb(255 248 232 / 0.72) 0 4px, transparent 4px 100%),
+    var(--color-card-line);
+  box-shadow:
+    inset 0 -3px 0 0 #d5c292,
+    0 -2px 0 0 #fff8e8,
+    0 2px 0 0 #d5b77a,
+    -2px 0 0 0 #fff8e8,
+    2px 0 0 0 #d5b77a;
+}
+
+.pixel-hud {
+  border-radius: 0;
+  box-shadow:
+    inset 0 2px 0 0 rgb(255 255 255 / 0.08),
+    inset 0 -2px 0 0 rgb(0 0 0 / 0.34),
+    0 -2px 0 0 #24374b,
+    0 2px 0 0 #02070b,
+    -2px 0 0 0 #02070b,
+    2px 0 0 0 #24374b;
+}
+
+.pixel-hud-panel {
+  border-radius: 0;
+  box-shadow:
+    inset 0 2px 0 0 rgb(255 255 255 / 0.08),
+    inset 0 -2px 0 0 rgb(0 0 0 / 0.24),
+    0 -2px 0 0 rgb(255 255 255 / 0.12),
+    0 2px 0 0 rgb(0 0 0 / 0.28),
+    -2px 0 0 0 rgb(255 255 255 / 0.12),
+    2px 0 0 0 rgb(0 0 0 / 0.28);
+}
+
+.pixel-score-chip,
+.pixel-alert {
+  border-radius: 0;
+  box-shadow:
+    inset 0 2px 0 0 rgb(255 255 255 / 0.1),
+    inset 0 -2px 0 0 rgb(0 0 0 / 0.24),
+    0 -2px 0 0 rgb(255 255 255 / 0.12),
+    0 2px 0 0 rgb(0 0 0 / 0.24),
+    -2px 0 0 0 rgb(255 255 255 / 0.12),
+    2px 0 0 0 rgb(0 0 0 / 0.24);
+}
+
+.pixel-dot {
+  border-radius: 0;
+  box-shadow:
+    0 -1px 0 0 rgb(255 255 255 / 0.75),
+    0 1px 0 0 rgb(0 0 0 / 0.38),
+    -1px 0 0 0 rgb(255 255 255 / 0.75),
+    1px 0 0 0 rgb(0 0 0 / 0.38);
+}
+
+.pixel-target {
+  border-radius: 0;
+  outline: 2px dashed var(--color-ball);
+  outline-offset: -1px;
+  box-shadow:
+    0 -1px 0 0 rgb(10 21 30 / 0.5),
+    0 1px 0 0 rgb(10 21 30 / 0.5),
+    -1px 0 0 0 rgb(10 21 30 / 0.5),
+    1px 0 0 0 rgb(10 21 30 / 0.5);
+}
+
+.pixel-chip {
+  border-radius: 0;
+  background: #24374b;
+  box-shadow:
+    inset 0 2px 0 0 rgb(255 255 255 / 0.12),
+    inset 0 -2px 0 0 #101f2b,
+    0 -2px 0 0 #0a151e,
+    0 2px 0 0 #0a151e,
+    -2px 0 0 0 #0a151e,
+    2px 0 0 0 #0a151e;
+}
+
+.pixel-icon-button {
+  border-radius: 0;
+  box-shadow:
+    0 -2px 0 0 transparent,
+    0 2px 0 0 transparent,
+    -2px 0 0 0 transparent,
+    2px 0 0 0 transparent;
+}
+.pixel-icon-button:hover {
+  background: #24374b;
+  box-shadow:
+    inset 0 2px 0 0 rgb(255 255 255 / 0.12),
+    0 -2px 0 0 #0a151e,
+    0 2px 0 0 #0a151e,
+    -2px 0 0 0 #0a151e,
+    2px 0 0 0 #0a151e;
+}
+
+.pixel-progress {
+  border-radius: 0;
+  border: 2px solid #0a151e;
+  background:
+    linear-gradient(180deg, rgb(10 21 30 / 0.2), transparent 36%),
+    #d9c89c;
+  image-rendering: pixelated;
+  box-shadow:
+    inset 0 2px 0 0 rgb(10 21 30 / 0.26),
+    inset 0 -2px 0 0 rgb(255 248 232 / 0.46),
+    0 -2px 0 0 #d5b77a,
+    0 2px 0 0 #fff8e8,
+    -2px 0 0 0 #d5b77a,
+    2px 0 0 0 #fff8e8;
+}
+.pixel-progress > div {
+  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.38) 0 3px, transparent 3px 100%),
+    repeating-linear-gradient(90deg, transparent 0 10px, rgb(10 21 30 / 0.22) 10px 12px),
+    var(--color-cta-500);
+  box-shadow:
+    inset 0 -2px 0 0 rgb(10 21 30 / 0.24),
+    inset -2px 0 0 0 rgb(10 21 30 / 0.18);
+}
+
+.pixel-calendar {
+  border-radius: 0;
+  box-shadow:
+    inset 0 3px 0 0 #24374b,
+    inset 0 -3px 0 0 #0a151e,
+    0 -3px 0 0 #0a151e,
+    0 3px 0 0 #0a151e,
+    -3px 0 0 0 #0a151e,
+    3px 0 0 0 #0a151e;
+}
+
+.daily-playfield {
+  min-height: calc(100svh - 7.25rem);
+}
+
+.daily-court-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgb(10 21 30 / 0.08), rgb(10 21 30 / 0.62) 68%, rgb(10 21 30 / 0.86)),
+    radial-gradient(circle at 50% 38%, transparent 0 36%, rgb(10 21 30 / 0.34) 70%);
+  pointer-events: none;
+}
+
+.answer-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.pixel-court-preview {
+  position: relative;
+  overflow: hidden;
+  border: 4px solid #1f7258;
+  background:
+    linear-gradient(180deg, #78c9d9 0 18%, #2f7a62 18% 27%, #23624f 27% 100%);
+  box-shadow:
+    inset 0 4px 0 0 rgb(255 255 255 / 0.2),
+    inset 0 -5px 0 0 #164735,
+    0 4px 0 0 #164735;
+  image-rendering: pixelated;
+}
+.pixel-court-preview::before {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 14%;
+  height: 16%;
+  background:
+    linear-gradient(90deg, transparent 0 7%, #fff4df 7% 32%, transparent 32% 54%, #fff4df 54% 83%, transparent 83%),
+    repeating-linear-gradient(90deg, #2f7a62 0 9px, #3f8d70 9px 18px, #276c57 18px 27px);
+  box-shadow:
+    0 10px 0 0 #2a775f,
+    -14px 14px 0 0 #2f7a62,
+    14px 14px 0 0 #3a896d;
+}
+.pixel-court-preview::after {
+  content: '';
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  bottom: 11%;
+  height: 61%;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 1px), #f8f2d8 calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(180deg, transparent 0 20%, #f8f2d8 20% calc(20% + 2px), transparent calc(20% + 2px) 69%, #f8f2d8 69% calc(69% + 2px), transparent calc(69% + 2px)),
+    linear-gradient(90deg, transparent 0 10%, #f8f2d8 10% calc(10% + 2px), transparent calc(10% + 2px) calc(90% - 2px), #f8f2d8 calc(90% - 2px) 90%, transparent 90%),
+    linear-gradient(180deg, #2f86bd 0%, #2877ad 100%);
+  border-top: 3px solid #f8f2d8;
+  border-bottom: 3px solid #f8f2d8;
+  box-shadow:
+    inset 0 7px 0 0 rgb(255 255 255 / 0.08),
+    0 5px 0 0 #164735,
+    -7px 7px 0 0 #23624f,
+    7px 7px 0 0 #23624f;
+  clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
+}
+.pixel-court-net,
+.pixel-court-player,
+.pixel-court-ball {
+  position: absolute;
+  z-index: 2;
+}
+.pixel-court-net {
+  left: 19%;
+  right: 19%;
+  top: 60%;
+  height: 4px;
+  background:
+    repeating-linear-gradient(90deg, #f8f2d8 0 1px, #0a151e 1px 4px),
+    #0a151e;
+  box-shadow:
+    0 -2px 0 0 #0a151e,
+    0 2px 0 0 #0a151e;
+}
+.pixel-court-player {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #fff4df;
+  background: #13aa79;
+  box-shadow:
+    0 -5px 0 0 #d8f046,
+    0 6px 0 0 #0a151e;
+}
+.pixel-court-player[data-side='near'] {
+  left: 47%;
+  bottom: 19%;
+}
+.pixel-court-player[data-side='far'] {
+  left: 47%;
+  top: 37%;
+  background: #d85a42;
+}
+.pixel-court-ball {
+  right: 27%;
+  top: 48%;
+  width: 7px;
+  height: 7px;
+  background: #d8f046;
+  box-shadow: 0 0 0 2px #0a151e;
+}
+
+.pixel-daily-preview {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 4px solid #1f7258;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.18) 0 8px, transparent 8px),
+    repeating-linear-gradient(0deg, rgb(10 21 30 / 0.12) 0 10px, transparent 10px 20px),
+    #24785f;
+  box-shadow:
+    inset 0 4px 0 0 rgb(255 255 255 / 0.18),
+    inset 0 -5px 0 0 #164735,
+    0 4px 0 0 #164735;
+  image-rendering: pixelated;
+}
+.pixel-daily-preview::before {
+  content: '';
+  position: absolute;
+  inset: 18% 16%;
+  background: #fff4df;
+  box-shadow:
+    inset 0 5px 0 0 #ff8392,
+    inset 0 -5px 0 0 #d5b77a,
+    0 -4px 0 0 #0a151e,
+    0 4px 0 0 #0a151e,
+    -4px 0 0 0 #0a151e,
+    4px 0 0 0 #0a151e,
+    0 10px 0 0 rgb(10 21 30 / 0.32);
+}
+.pixel-daily-preview::after {
+  content: '?';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -48%);
+  font-family: var(--font-pixel);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  color: #192839;
+  text-shadow:
+    0 4px 0 #d5b77a,
+    -2px 0 0 #fff8e8,
+    2px 0 0 #fff8e8;
+}
+.pixel-daily-preview-icon {
+  position: absolute;
+  z-index: 1;
+  right: 16%;
+  bottom: 18%;
+  width: 30%;
+  height: auto;
+  filter: drop-shadow(0 4px 0 rgb(10 21 30 / 0.45));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Green "stadium" surround for the gameplay court (concept board: court on grass). */
+.stage-grass {
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 55%, rgb(0 0 0 / 0.35) 100%),
+    repeating-linear-gradient(180deg, #3f8f4e 0 22px, #388446 22px 44px);
+}
+
+/*
+ * Pixel-art button (v3 ui/button_primary_blank look, drawn in CSS so it stays crisp at any width):
+ * square body, 4px dark outline with notched corners, top highlight, darker lip, chunky drop shadow.
+ * Unlayered, so it overrides the rounded Tailwind utilities on the same element.
+ */
+.btn-pixel {
+  --px: 4px;
+  position: relative;
+  border-radius: 0;
+  margin: var(--px) var(--px) calc(var(--px) * 3);
+  background: var(--color-cta-500);
+  font-family: 'Pixelify Sans', var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 0 var(--color-cta-700);
+  box-shadow:
+    inset 0 var(--px) 0 0 rgb(255 255 255 / 0.35),
+    inset 0 calc(var(--px) * -1.5) 0 0 var(--color-cta-700),
+    0 calc(var(--px) * -1) 0 0 var(--color-navy-800),
+    0 var(--px) 0 0 var(--color-navy-800),
+    calc(var(--px) * -1) 0 0 0 var(--color-navy-800),
+    var(--px) 0 0 0 var(--color-navy-800),
+    0 calc(var(--px) * 3) 0 0 var(--color-navy-950);
+  transition: transform 60ms steps(1), box-shadow 60ms steps(1), background-color 60ms steps(1);
+}
+.btn-pixel:hover {
+  background: #20c991;
+  box-shadow:
+    inset 0 var(--px) 0 0 rgb(255 255 255 / 0.48),
+    inset 0 calc(var(--px) * -1.5) 0 0 #0b805e,
+    0 calc(var(--px) * -1) 0 0 var(--color-navy-800),
+    0 var(--px) 0 0 var(--color-navy-800),
+    calc(var(--px) * -1) 0 0 0 var(--color-navy-800),
+    var(--px) 0 0 0 var(--color-navy-800),
+    0 calc(var(--px) * 3) 0 0 var(--color-navy-950);
+}
+.btn-pixel:active {
+  transform: translateY(calc(var(--px) * 2));
+  box-shadow:
+    inset 0 var(--px) 0 0 rgb(255 255 255 / 0.2),
+    inset 0 calc(var(--px) * -1) 0 0 var(--color-cta-700),
+    0 calc(var(--px) * -1) 0 0 var(--color-navy-800),
+    0 var(--px) 0 0 var(--color-navy-800),
+    calc(var(--px) * -1) 0 0 0 var(--color-navy-800),
+    var(--px) 0 0 0 var(--color-navy-800),
+    0 var(--px) 0 0 var(--color-navy-950);
+}
+.btn-pixel:focus-visible {
+  outline: var(--px) solid var(--color-ball);
+  outline-offset: calc(var(--px) * 2);
+}
+
+.btn-pixel-secondary {
+  --px: 4px;
+  position: relative;
+  border-radius: 0;
+  border: 0;
+  margin: var(--px) var(--px) calc(var(--px) * 3);
+  background: #fff4df;
+  color: var(--color-ink);
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow:
+    inset 0 var(--px) 0 0 #fff9ea,
+    inset 0 calc(var(--px) * -1.5) 0 0 #d5b77a,
+    0 calc(var(--px) * -1) 0 0 var(--color-navy-800),
+    0 var(--px) 0 0 var(--color-navy-800),
+    calc(var(--px) * -1) 0 0 0 var(--color-navy-800),
+    var(--px) 0 0 0 var(--color-navy-800),
+    0 calc(var(--px) * 3) 0 0 rgb(10 21 30 / 0.45);
+  transition: transform 60ms steps(1), box-shadow 60ms steps(1), background-color 60ms steps(1);
+}
+.btn-pixel-secondary:hover {
+  background: #f9dfaa;
+  box-shadow:
+    inset 0 var(--px) 0 0 #fff8de,
+    inset 0 calc(var(--px) * -1.5) 0 0 #be9350,
+    0 calc(var(--px) * -1) 0 0 var(--color-navy-800),
+    0 var(--px) 0 0 var(--color-navy-800),
+    calc(var(--px) * -1) 0 0 0 var(--color-navy-800),
+    var(--px) 0 0 0 var(--color-navy-800),
+    0 calc(var(--px) * 3) 0 0 rgb(10 21 30 / 0.45);
+}
+.btn-pixel-secondary:active {
+  transform: translateY(calc(var(--px) * 2));
+  box-shadow:
+    inset 0 var(--px) 0 0 #fff9ea,
+    inset 0 calc(var(--px) * -1) 0 0 #d5b77a,
+    0 calc(var(--px) * -1) 0 0 var(--color-navy-800),
+    0 var(--px) 0 0 var(--color-navy-800),
+    calc(var(--px) * -1) 0 0 0 var(--color-navy-800),
+    var(--px) 0 0 0 var(--color-navy-800);
+}
+
+/* Pixel text logo: chunky font with a stepped 2px navy outline and drop shadow. */
+.pixel-logo {
+  font-family: 'Pixelify Sans', var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow:
+    -3px 0 0 var(--color-navy-900),
+    3px 0 0 var(--color-navy-900),
+    0 -3px 0 var(--color-navy-900),
+    0 3px 0 var(--color-navy-900),
+    -3px -3px 0 var(--color-navy-900),
+    3px -3px 0 var(--color-navy-900),
+    -3px 3px 0 var(--color-navy-900),
+    3px 3px 0 var(--color-navy-900),
+    0 7px 0 rgb(16 31 43 / 0.55);
+}
+
+/*
+ * Pixel panel: square body with a 3px dark outline whose corners are notched (outline drawn
+ * with offset box-shadows, so corner pixels stay empty), plus an inner highlight and drop shadow.
+ */
+.pixel-panel {
+  --px: 3px;
+  border-radius: 0;
+  margin: var(--px);
+  box-shadow:
+    inset 0 var(--px) 0 0 rgb(255 255 255 / 0.12),
+    inset 0 calc(var(--px) * -1) 0 0 rgb(0 0 0 / 0.25),
+    0 calc(var(--px) * -1) 0 0 var(--color-navy-950),
+    0 var(--px) 0 0 var(--color-navy-950),
+    calc(var(--px) * -1) 0 0 0 var(--color-navy-950),
+    var(--px) 0 0 0 var(--color-navy-950),
+    0 calc(var(--px) * 2.5) 0 0 rgb(10 21 30 / 0.55);
+}
+
+/* Landing background: animated pixel scene, still first frame for reduced-motion users. */
+.landing-hero {
+  background-image: var(--hero-animated);
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-hero {
+    background-image: var(--hero-still);
+  }
+}
+
+/*
+ * Stardew-inspired toolbar: wooden plank bar, bevelled inventory slots, red selector frame.
+ * All square corners and hard-edged shadows to keep the pixel look.
+ */
+.sv-toolbar {
+  --wood: #b5713d;
+  --wood-dark: #8a4f27;
+  --wood-edge: #4a2716;
+  --wood-light: #e3a35c;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 11px, rgb(74 39 22 / 0.35) 11px 13px),
+    linear-gradient(90deg, rgb(0 0 0 / 0.08) 0 1px, transparent 1px 100%) 0 0 / 46px 100%,
+    var(--wood);
+  box-shadow:
+    inset 0 3px 0 0 var(--wood-light),
+    inset 0 -3px 0 0 var(--wood-dark),
+    0 -4px 0 0 var(--wood-edge);
+}
+.sv-slot {
+  width: 44px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1d39b;
+  box-shadow:
+    inset 3px 3px 0 0 #b4793f,
+    inset -3px -3px 0 0 #fbe8bf,
+    0 -3px 0 0 var(--wood-edge),
+    0 3px 0 0 var(--wood-edge),
+    -3px 0 0 0 var(--wood-edge),
+    3px 0 0 0 var(--wood-edge);
+}
+.sv-slot[data-active='true'] {
+  background: #fbe2a8;
+  transform: translateY(-3px);
+  box-shadow:
+    inset 3px 3px 0 0 #c88a4a,
+    inset -3px -3px 0 0 #fff3d6,
+    0 -3px 0 0 #e23b2e,
+    0 3px 0 0 #e23b2e,
+    -3px 0 0 0 #e23b2e,
+    3px 0 0 0 #e23b2e,
+    0 6px 0 0 #7d1d16;
+}
+.sv-label {
+  font-family: 'Pixelify Sans', var(--font-sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: #fff4df;
+  text-shadow:
+    1px 0 0 #4a2716,
+    -1px 0 0 #4a2716,
+    0 1px 0 #4a2716,
+    0 -1px 0 #4a2716,
+    0 2px 0 #4a2716;
+}

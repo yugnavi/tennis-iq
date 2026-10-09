@@ -1,0 +1,1091 @@
+{
+  "name": "Tennis IQ Pixel Pack",
+  "version": "3.0.0",
+  "assets": [
+    {
+      "path": "characters/player_01/idle_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/idle_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/run1_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/run1_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/run2_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/run2_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/forehand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/forehand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/backhand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/backhand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/serve_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/serve_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/volley_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/volley_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/lunge_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_01/lunge_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "spritesheets/player_01_8x2.png",
+      "width": 1536,
+      "height": 512,
+      "category": "spritesheets",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/idle_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/idle_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/run1_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/run1_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/run2_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/run2_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/forehand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/forehand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/backhand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/backhand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/serve_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/serve_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/volley_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/volley_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/lunge_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_02/lunge_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "spritesheets/player_02_8x2.png",
+      "width": 1536,
+      "height": 512,
+      "category": "spritesheets",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/idle_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/idle_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/run1_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/run1_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/run2_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/run2_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/forehand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/forehand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/backhand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/backhand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/serve_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/serve_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/volley_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/volley_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/lunge_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_03/lunge_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "spritesheets/player_03_8x2.png",
+      "width": 1536,
+      "height": 512,
+      "category": "spritesheets",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/idle_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/idle_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/run1_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/run1_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/run2_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/run2_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/forehand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/forehand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/backhand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/backhand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/serve_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/serve_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/volley_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/volley_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/lunge_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_04/lunge_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "spritesheets/player_04_8x2.png",
+      "width": 1536,
+      "height": 512,
+      "category": "spritesheets",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/idle_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/idle_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/run1_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/run1_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/run2_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/run2_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/forehand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/forehand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/backhand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/backhand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/serve_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/serve_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/volley_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/volley_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/lunge_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_05/lunge_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "spritesheets/player_05_8x2.png",
+      "width": 1536,
+      "height": 512,
+      "category": "spritesheets",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/idle_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/idle_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/run1_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/run1_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/run2_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/run2_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/forehand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/forehand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/backhand_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/backhand_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/serve_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/serve_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/volley_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/volley_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/lunge_right.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "characters/player_06/lunge_left.png",
+      "width": 192,
+      "height": 256,
+      "category": "characters",
+      "transparent": true
+    },
+    {
+      "path": "spritesheets/player_06_8x2.png",
+      "width": 1536,
+      "height": 512,
+      "category": "spritesheets",
+      "transparent": true
+    },
+    {
+      "path": "courts/court_hard_portrait.png",
+      "width": 720,
+      "height": 1200,
+      "category": "courts",
+      "transparent": false
+    },
+    {
+      "path": "courts/court_clay_portrait.png",
+      "width": 720,
+      "height": 1200,
+      "category": "courts",
+      "transparent": false
+    },
+    {
+      "path": "courts/court_grass_portrait.png",
+      "width": 720,
+      "height": 1200,
+      "category": "courts",
+      "transparent": false
+    },
+    {
+      "path": "courts/court_indoor_portrait.png",
+      "width": 720,
+      "height": 1200,
+      "category": "courts",
+      "transparent": false
+    },
+    {
+      "path": "arenas/arena_local_club_portrait.png",
+      "width": 720,
+      "height": 1280,
+      "category": "arenas",
+      "transparent": false
+    },
+    {
+      "path": "arenas/arena_regional_tournament_portrait.png",
+      "width": 720,
+      "height": 1280,
+      "category": "arenas",
+      "transparent": false
+    },
+    {
+      "path": "arenas/arena_grand_slam_night_portrait.png",
+      "width": 720,
+      "height": 1280,
+      "category": "arenas",
+      "transparent": false
+    },
+    {
+      "path": "backgrounds/bg_home_portrait.png",
+      "width": 720,
+      "height": 1280,
+      "category": "backgrounds",
+      "transparent": false
+    },
+    {
+      "path": "backgrounds/bg_academy_portrait.png",
+      "width": 720,
+      "height": 1280,
+      "category": "backgrounds",
+      "transparent": false
+    },
+    {
+      "path": "backgrounds/bg_results_portrait.png",
+      "width": 720,
+      "height": 1280,
+      "category": "backgrounds",
+      "transparent": false
+    },
+    {
+      "path": "equipment/ball.png",
+      "width": 160,
+      "height": 160,
+      "category": "equipment",
+      "transparent": true
+    },
+    {
+      "path": "equipment/ball_glow.png",
+      "width": 160,
+      "height": 160,
+      "category": "equipment",
+      "transparent": true
+    },
+    {
+      "path": "equipment/racket_blue.png",
+      "width": 160,
+      "height": 160,
+      "category": "equipment",
+      "transparent": true
+    },
+    {
+      "path": "equipment/racket_red.png",
+      "width": 160,
+      "height": 160,
+      "category": "equipment",
+      "transparent": true
+    },
+    {
+      "path": "icons/trophy.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/star.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/flame.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/target.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/shield.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/check.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/cross.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/book.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/lightning.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/calendar.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/home.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/lock.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/settings.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "icons/medal.png",
+      "width": 160,
+      "height": 160,
+      "category": "icons",
+      "transparent": true
+    },
+    {
+      "path": "equipment/net.png",
+      "width": 160,
+      "height": 160,
+      "category": "equipment",
+      "transparent": true
+    },
+    {
+      "path": "equipment/bench.png",
+      "width": 160,
+      "height": 160,
+      "category": "equipment",
+      "transparent": true
+    },
+    {
+      "path": "equipment/tree.png",
+      "width": 160,
+      "height": 160,
+      "category": "equipment",
+      "transparent": true
+    },
+    {
+      "path": "effects/hit.png",
+      "width": 160,
+      "height": 160,
+      "category": "effects",
+      "transparent": true
+    },
+    {
+      "path": "effects/bounce.png",
+      "width": 160,
+      "height": 160,
+      "category": "effects",
+      "transparent": true
+    },
+    {
+      "path": "effects/arrow.png",
+      "width": 160,
+      "height": 160,
+      "category": "effects",
+      "transparent": true
+    },
+    {
+      "path": "badges/rank_01_ball_kid.png",
+      "width": 160,
+      "height": 160,
+      "category": "badges",
+      "transparent": true
+    },
+    {
+      "path": "badges/rank_02_rookie.png",
+      "width": 160,
+      "height": 160,
+      "category": "badges",
+      "transparent": true
+    },
+    {
+      "path": "badges/rank_03_club_player.png",
+      "width": 160,
+      "height": 160,
+      "category": "badges",
+      "transparent": true
+    },
+    {
+      "path": "badges/rank_04_challenger.png",
+      "width": 160,
+      "height": 160,
+      "category": "badges",
+      "transparent": true
+    },
+    {
+      "path": "badges/rank_05_tour_player.png",
+      "width": 160,
+      "height": 160,
+      "category": "badges",
+      "transparent": true
+    },
+    {
+      "path": "badges/rank_06_strategist.png",
+      "width": 160,
+      "height": 160,
+      "category": "badges",
+      "transparent": true
+    },
+    {
+      "path": "badges/rank_07_grand_slam.png",
+      "width": 160,
+      "height": 160,
+      "category": "badges",
+      "transparent": true
+    },
+    {
+      "path": "ui/panel_parchment_9slice.png",
+      "width": 576,
+      "height": 280,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "ui/panel_dark_9slice.png",
+      "width": 576,
+      "height": 280,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "ui/panel_green_9slice.png",
+      "width": 576,
+      "height": 280,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "ui/panel_wood_9slice.png",
+      "width": 576,
+      "height": 280,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "ui/button_primary_blank.png",
+      "width": 384,
+      "height": 112,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "ui/button_secondary_blank.png",
+      "width": 384,
+      "height": 112,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "ui/button_danger_blank.png",
+      "width": 384,
+      "height": 112,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "ui/button_neutral_blank.png",
+      "width": 384,
+      "height": 112,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "ui/button_gold_blank.png",
+      "width": 384,
+      "height": 112,
+      "category": "ui",
+      "transparent": true
+    },
+    {
+      "path": "branding/tennis_iq_wordmark.png",
+      "width": 720,
+      "height": 180,
+      "category": "branding",
+      "transparent": true
+    },
+    {
+      "path": "branding/app_icon_symbol.png",
+      "width": 320,
+      "height": 320,
+      "category": "branding",
+      "transparent": true
+    },
+    {
+      "path": "previews/portrait_layout_180x320.png",
+      "width": 720,
+      "height": 1280,
+      "category": "previews",
+      "transparent": false
+    }
+  ]
+}

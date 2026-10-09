@@ -1,0 +1,17 @@
+node_modules
+dist
+.env
+.env.local
+.env.*.local
+.DS_Store
+.claude
+.mcp.json
+coverage
+playwright-report
+test-results
+supabase/.temp
+supabase/.branches
+.netlify
+tennis-iq-pixel-pack-v3
+tennis-iq-stardew-style-mobile-assets-v3.zip
+tennis_iq_*.webp

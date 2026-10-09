@@ -1,0 +1,16 @@
+{
+  "palette": {
+    "navy": "#101f2b",
+    "outline": "#192839",
+    "cream": "#fff4df",
+    "tennisGreen": "#13aa79",
+    "deepGreen": "#08795b",
+    "gold": "#f2b544",
+    "courtBlue": "#246d9d",
+    "clay": "#ba653e",
+    "grass": "#5eaa67"
+  },
+  "artDirection": "original consistent pixel artwork, nearest-neighbor scaling, 4x export",
+  "target": "responsive mobile portrait 320\u2013430 CSS px",
+  "safeArea": "Keep score at top and input controls below court"
+}
