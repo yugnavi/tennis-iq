@@ -88,6 +88,30 @@ describe('createSupabaseGameService', () => {
     ]);
   });
 
+  it('sends feedback through the submit_feedback RPC', async () => {
+    const { client, calls } = fakeClient({ rpc: { submit_feedback: () => ({ data: 'feedback-1', error: null }) } });
+    const svc = createSupabaseGameService(client);
+    await svc.submitFeedback({
+      kind: 'bug',
+      message: 'The academy button did not respond.',
+      contact: 'tester@example.com',
+      pageUrl: 'https://example.com/progress',
+      userAgent: 'vitest',
+    });
+    expect(calls).toEqual([
+      {
+        name: 'submit_feedback',
+        args: {
+          p_kind: 'bug',
+          p_message: 'The academy button did not respond.',
+          p_contact: 'tester@example.com',
+          p_page_url: 'https://example.com/progress',
+          p_user_agent: 'vitest',
+        },
+      },
+    ]);
+  });
+
   it('classifies 22023 as a domain error and anything else as infra', async () => {
     const { client } = fakeClient({
       rpc: {

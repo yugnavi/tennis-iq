@@ -101,6 +101,16 @@ export type AnswerSubmission = {
   battleId?: string;
 };
 
+export type FeedbackKind = 'suggestion' | 'recommendation' | 'bug';
+
+export type FeedbackSubmission = {
+  kind: FeedbackKind;
+  message: string;
+  contact?: string;
+  pageUrl?: string;
+  userAgent?: string;
+};
+
 export type Account =
   | { kind: 'guest' }
   | { kind: 'google'; email?: string; name?: string };
@@ -133,6 +143,7 @@ export interface GameService {
   /** User exits early. No XP bonus. Idempotent. */
   abandonBattle(battleId: string): Promise<void>;
   getProgress(): Promise<ProgressSummary>;
+  submitFeedback(feedback: FeedbackSubmission): Promise<void>;
 }
 
 // ---------- Hook contracts (Agent 3 implements in src/hooks/game, Agent 2 consumes in pages) ----------

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { ROUTES } from '../app/App';
 import { readOAuthError } from '../services';
 import {
@@ -14,7 +14,7 @@ import {
   TopBar,
   type ReadySession,
 } from '../components/ui';
-import { TRACK_LABELS, TRACKS, type Account, type AccountService, type ProgressSummary, type TrackProgress } from '../types';
+import { TRACK_LABELS, TRACKS, type Account, type AccountService, type FeedbackKind, type ProgressSummary, type TrackProgress } from '../types';
 
 const pct = (num: number, den: number) => (den > 0 ? Math.round((num / den) * 100) : 0);
 
@@ -162,6 +162,95 @@ function AccountCard({ account: service }: { account: AccountService }) {
 
 type Load = { kind: 'loading' } | { kind: 'error'; message: string } | { kind: 'ok'; data: ProgressSummary };
 
+type FeedbackState = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent' } | { kind: 'error'; message: string };
+
+const inputClass =
+  'w-full border-4 border-navy-900 bg-white px-3 py-2 text-ink shadow-[inset_0_-3px_0_#d5b77a] focus:outline-none focus:ring-4 focus:ring-ball disabled:opacity-60';
+
+function FeedbackCard({ session }: { session: ReadySession }) {
+  const [kind, setKind] = useState<FeedbackKind>('suggestion');
+  const [message, setMessage] = useState('');
+  const [contact, setContact] = useState('');
+  const [state, setState] = useState<FeedbackState>({ kind: 'idle' });
+  const isPractice = session.status.kind === 'practice';
+  const disabled = state.kind === 'sending' || isPractice;
+
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const trimmed = message.trim();
+    if (trimmed.length < 5) {
+      setState({ kind: 'error', message: 'Please write a little more detail.' });
+      return;
+    }
+    setState({ kind: 'sending' });
+    try {
+      await session.service.submitFeedback({
+        kind,
+        message: trimmed,
+        contact: contact.trim() || undefined,
+        pageUrl: typeof window === 'undefined' ? undefined : window.location.href,
+        userAgent: typeof navigator === 'undefined' ? undefined : navigator.userAgent,
+      });
+      setMessage('');
+      setContact('');
+      setState({ kind: 'sent' });
+    } catch (e) {
+      setState({ kind: 'error', message: e instanceof Error ? e.message : 'Could not send feedback.' });
+    }
+  };
+
+  return (
+    <Card as="section" aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading" className="font-bold">
+        Feedback
+      </h2>
+      <p className="mt-1 text-sm text-ink/75">Send suggestions, recommendations, or bugs you found in the app.</p>
+      {isPractice && <p className="mt-2 text-sm font-semibold text-wrong">Feedback needs Supabase ranked mode to be connected.</p>}
+      <form className="mt-3 flex flex-col gap-3" onSubmit={submit}>
+        <label className="flex flex-col gap-1 text-sm font-bold">
+          Type
+          <select className={inputClass} value={kind} disabled={disabled} onChange={(e) => setKind(e.target.value as FeedbackKind)}>
+            <option value="suggestion">Suggestion</option>
+            <option value="recommendation">Recommendation</option>
+            <option value="bug">Bug report</option>
+          </select>
+        </label>
+        <label className="flex flex-col gap-1 text-sm font-bold">
+          Details
+          <textarea
+            className={`${inputClass} min-h-28 resize-y`}
+            value={message}
+            disabled={disabled}
+            maxLength={2000}
+            placeholder="What should improve, or what bug did you find?"
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm font-bold">
+          Contact optional
+          <input
+            className={inputClass}
+            value={contact}
+            disabled={disabled}
+            maxLength={120}
+            placeholder="Email, name, or handle"
+            onChange={(e) => setContact(e.target.value)}
+          />
+        </label>
+        <Button type="submit" block disabled={disabled}>
+          {state.kind === 'sending' ? 'Sending...' : 'Send feedback'}
+        </Button>
+        {state.kind === 'sent' && <p className="text-sm font-bold text-correct">Thanks. Your feedback was sent.</p>}
+        {state.kind === 'error' && (
+          <p role="alert" className="text-sm font-bold text-wrong">
+            {state.message}
+          </p>
+        )}
+      </form>
+    </Card>
+  );
+}
+
 function ProgressContent({ session }: { session: ReadySession }) {
   const [state, setState] = useState<Load>({ kind: 'loading' });
   const load = useCallback(() => {
@@ -218,6 +307,8 @@ function ProgressContent({ session }: { session: ReadySession }) {
           <Stat label="Best streak" value={d.bestStreak} />
         </dl>
       </Card>
+
+      <FeedbackCard session={session} />
     </>
   );
 }

@@ -62,6 +62,7 @@ const service: GameService = {
   submitAnswer: async () => result,
   startBattle: async () => ({ battleId: 'b1', playerPoints: 0, opponentPoints: 0, status: 'in_progress' }),
   abandonBattle: async () => {},
+  submitFeedback: async () => {},
   getProgress: async () => ({
     profile,
     totalAttempts: 10,

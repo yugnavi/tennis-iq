@@ -58,6 +58,7 @@ export function createFakeService(opts: FakeOptions = {}) {
     getProgress: async () => {
       throw new Error('not used');
     },
+    submitFeedback: async () => {},
     submitAnswer: async (sub: AnswerSubmission): Promise<AnswerResult> => {
       calls.submit.push(sub);
       const c = CHALLENGES.find((x) => x.id === sub.challengeId);

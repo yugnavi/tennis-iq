@@ -4,7 +4,7 @@
  * and maps. Errors are classified into ServiceError('domain' | 'infra').
  */
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { AnswerSubmission, ConnectionStatus, GameService, Track } from '../types';
+import type { AnswerSubmission, ConnectionStatus, FeedbackSubmission, GameService, Track } from '../types';
 import { ServiceError, withTimeout } from './errors';
 import {
   CHALLENGE_COLUMNS,
@@ -87,5 +87,19 @@ export function createSupabaseGameService(client: SupabaseClient, timeoutMs = RE
       call('abandon_battle', () => client.rpc('abandon_battle', { p_battle_id: battleId }), () => undefined),
 
     getProgress: () => call('get_progress', () => client.rpc('get_progress'), mapProgressResult),
+
+    submitFeedback: (feedback: FeedbackSubmission) =>
+      call(
+        'submit_feedback',
+        () =>
+          client.rpc('submit_feedback', {
+            p_kind: feedback.kind,
+            p_message: feedback.message,
+            p_contact: feedback.contact?.trim() || null,
+            p_page_url: feedback.pageUrl?.trim() || null,
+            p_user_agent: feedback.userAgent?.trim() || null,
+          }),
+        () => undefined,
+      ),
   };
 }

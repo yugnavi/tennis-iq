@@ -4,7 +4,7 @@
  * calls are served by the practice service so the game never dead-ends.
  * Domain errors (invalid request) are rethrown unchanged. Reload to retry ranked.
  */
-import type { AnswerSubmission, BattleState, ConnectionStatus, GameService } from '../types';
+import type { AnswerSubmission, BattleState, ConnectionStatus, FeedbackSubmission, GameService } from '../types';
 import { isDomainError } from './errors';
 import type { PracticeGameService } from './practiceService';
 
@@ -71,5 +71,6 @@ export function createResilientService(primary: GameService, makePractice: (reas
       ),
     abandonBattle: (id) => run((s) => s.abandonBattle(id), (p) => p.abandonBattle(id)),
     getProgress: () => run((s) => s.getProgress(), (p) => p.getProgress()),
+    submitFeedback: (feedback: FeedbackSubmission) => run((s) => s.submitFeedback(feedback), (p) => p.submitFeedback(feedback)),
   };
 }

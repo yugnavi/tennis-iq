@@ -270,6 +270,10 @@ export function createPracticeService(options: PracticeOptions): PracticeGameSer
       };
     },
 
+    async submitFeedback() {
+      throw new ServiceError('infra', 'Feedback needs a server connection.');
+    },
+
     adoptBattle(b: BattleState) {
       if (findBattle(b.battleId)) return;
       pushBattle({ ...b, bonusAwarded: false });
