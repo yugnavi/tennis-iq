@@ -1,7 +1,7 @@
 import type { BadgeName } from './Badge';
 
 /**
- * Display-only rank tiers for the TIQ prototype score (start 500; 30 questions × +15 caps it at 950).
+ * Display-only rank tiers for the TIQ prototype score.
  * Purely cosmetic labels for the dashboard; not an official or server-side rating.
  */
 export const RANKS: { min: number; title: string; badge: BadgeName }[] = [

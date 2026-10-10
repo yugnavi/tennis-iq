@@ -3,20 +3,20 @@ import raw from '../../data/challenges.json';
 import { challengeSchema, COURT_LANDMARKS, publicChallengeSchema, TRACKS } from '../../types';
 
 describe('challenge bank', () => {
-  it('has exactly 30 challenges, 10 per track, all valid', () => {
-    expect(CHALLENGES).toHaveLength(30);
-    for (const t of TRACKS) expect(CHALLENGES.filter((c) => c.track === t)).toHaveLength(10);
+  it('has exactly 600 challenges, 200 per track, all valid', () => {
+    expect(CHALLENGES).toHaveLength(600);
+    for (const t of TRACKS) expect(CHALLENGES.filter((c) => c.track === t)).toHaveLength(200);
     for (const c of raw as unknown[]) expect(() => challengeSchema.parse(c)).not.toThrow();
   });
 
   it('uses the expected ids and is sorted by code-unit order', () => {
-    const expected = TRACKS.flatMap((t) => Array.from({ length: 10 }, (_, i) => `${t}-${String(i + 1).padStart(2, '0')}`)).sort();
+    const expected = TRACKS.flatMap((t) => Array.from({ length: 200 }, (_, i) => `${t}-${String(i + 1).padStart(2, '0')}`)).sort();
     expect(CHALLENGES.map((c) => c.id)).toEqual(expected);
     for (let i = 1; i < CHALLENGES.length; i++) expect(CHALLENGES[i - 1]!.id < CHALLENGES[i]!.id).toBe(true);
   });
 
   it('has unique prompts and a valid correct option with a/b/c/d option ids', () => {
-    expect(new Set(CHALLENGES.map((c) => c.prompt)).size).toBe(30);
+    expect(new Set(CHALLENGES.map((c) => c.prompt)).size).toBe(600);
     for (const c of CHALLENGES) {
       expect(c.options.map((o) => o.id)).toEqual(['a', 'b', 'c', 'd']);
       expect(c.options.some((o) => o.id === c.correctOptionId)).toBe(true);
@@ -38,8 +38,8 @@ describe('challenge bank', () => {
     const counts: Record<string, number> = {};
     for (const c of CHALLENGES) counts[c.correctOptionId] = (counts[c.correctOptionId] ?? 0) + 1;
     for (const id of ['a', 'b', 'c', 'd']) {
-      expect(counts[id] ?? 0).toBeGreaterThanOrEqual(5);
-      expect(counts[id] ?? 0).toBeLessThanOrEqual(10);
+      expect(counts[id] ?? 0).toBeGreaterThanOrEqual(140);
+      expect(counts[id] ?? 0).toBeLessThanOrEqual(160);
     }
     for (const t of TRACKS) {
       const perTrack = new Set(CHALLENGES.filter((c) => c.track === t).map((c) => c.correctOptionId));
@@ -75,7 +75,7 @@ describe('challenge bank', () => {
   });
 
   it('public view strips answers and passes the public schema', () => {
-    expect(PUBLIC_CHALLENGES).toHaveLength(30);
+    expect(PUBLIC_CHALLENGES).toHaveLength(600);
     for (const p of PUBLIC_CHALLENGES) {
       expect(p).not.toHaveProperty('correctOptionId');
       expect(p).not.toHaveProperty('explanation');

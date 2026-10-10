@@ -9,7 +9,7 @@
 # 1. Apply supabase/tests/_stub_supabase.sql (roles + auth schema), every migration, fixtures,
 #    then supabase/tests/*.test.sql (ASSERT-based; any failure aborts).
 # 2. Concurrency: 24 parallel duplicate submissions must yield exactly one award per rule.
-# 3. If supabase/seed.sql exists: load it into a fresh DB twice (idempotency) and check 10/10/10.
+# 3. If supabase/seed.sql exists: load it into a fresh DB twice (idempotency) and check 200/200/200.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -70,13 +70,13 @@ fi
 echo "ok ($RESULT)"
 
 if [[ -f "$ROOT/supabase/seed.sql" ]]; then
-  echo "== seed.sql loads, is idempotent, and has 10/10/10 approved challenges"
+  echo "== seed.sql loads, is idempotent, and has 200/200/200 approved challenges"
   setup_db tiq_seed
   psql -d tiq_seed -f "$ROOT/supabase/seed.sql" >/dev/null
   psql -d tiq_seed -f "$ROOT/supabase/seed.sql" >/dev/null
   COUNTS="$(psql -d tiq_seed -tA -c "select string_agg(track || '=' || n, ',' order by track) from
     (select track, count(*) n from challenges where approved group by track) s")"
-  if [[ "$COUNTS" != "challenger=10,rookie=10,strategist=10" ]]; then
+  if [[ "$COUNTS" != "challenger=200,rookie=200,strategist=200" ]]; then
     echo "FAIL seed counts: $COUNTS" >&2; exit 1
   fi
   echo "ok ($COUNTS)"

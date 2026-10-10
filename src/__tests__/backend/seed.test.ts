@@ -7,7 +7,7 @@ const sqlString = (v: string) => `'${v.replaceAll("'", "''")}'`;
 
 describe('real challenge content vs. server boundary', () => {
   it('every bundled challenge survives the SQL row → PublicChallenge mapping unchanged', () => {
-    expect(CHALLENGES).toHaveLength(30);
+    expect(CHALLENGES).toHaveLength(600);
     for (const c of CHALLENGES) {
       const row = {
         id: c.id,

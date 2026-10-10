@@ -38,7 +38,7 @@ export const optionSchema = z.object({
 
 /** Public, pre-answer view of a challenge: no correct answer, no explanation. */
 export const publicChallengeSchema = z.object({
-  id: z.string().regex(/^(rookie|challenger|strategist)-\d{2}$/),
+  id: z.string().regex(/^(rookie|challenger|strategist)-\d{2,3}$/),
   track: trackSchema,
   kind: questionKindSchema,
   difficulty: z.union([z.literal(1), z.literal(2), z.literal(3)]),

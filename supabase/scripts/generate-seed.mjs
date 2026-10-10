@@ -30,7 +30,7 @@ if (!Array.isArray(challenges)) fail('input must be a JSON array');
 const ids = new Set();
 for (const c of challenges) {
   const where = `challenge ${c?.id ?? '(no id)'}`;
-  if (!/^(rookie|challenger|strategist)-\d{2}$/.test(c.id ?? '')) fail(`${where}: bad id`);
+  if (!/^(rookie|challenger|strategist)-\d{2,3}$/.test(c.id ?? '')) fail(`${where}: bad id`);
   if (ids.has(c.id)) fail(`${where}: duplicate id`);
   ids.add(c.id);
   if (!TRACKS.includes(c.track)) fail(`${where}: bad track`);

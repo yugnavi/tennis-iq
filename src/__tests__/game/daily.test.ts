@@ -19,14 +19,14 @@ describe('daily puzzle selection', () => {
     expect(pickDailyChallenge(CHALLENGES, '2026-10-09')).toBe(a);
     expect(pickDailyChallenge(CHALLENGES, '2026-10-10').id).not.toBe(a.id);
     expect(pickDailyChallenge(CHALLENGES, '2026-10-08').id).not.toBe(a.id);
-    expect(a.id).toBe(CHALLENGES[5]!.id);
+    expect(a.id).toBe(CHALLENGES[dailyChallengeIndex('2026-10-09', CHALLENGES.length)]!.id);
   });
 
-  it('cycles through all 30 challenges over 30 consecutive days (stride 7 is coprime with 30)', () => {
+  it('cycles through all 600 challenges over 600 consecutive days (stride 7 is coprime with 600)', () => {
     const start = daysSinceEpoch('2026-01-01');
     const ids = new Set<string>();
-    for (let i = 0; i < 30; i++) ids.add(pickDailyChallenge(CHALLENGES, utcDateString(new Date((start + i) * 86_400_000))).id);
-    expect(ids.size).toBe(30);
+    for (let i = 0; i < 600; i++) ids.add(pickDailyChallenge(CHALLENGES, utcDateString(new Date((start + i) * 86_400_000))).id);
+    expect(ids.size).toBe(600);
   });
 
   it('uses UTC day boundaries', () => {
