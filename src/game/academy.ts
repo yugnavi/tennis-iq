@@ -1,6 +1,36 @@
 /** Academy question selection (pure, deterministic per seed). */
-import { ACADEMY_SESSION_SIZE } from '../types';
+import { ACADEMY_SESSION_SIZE, type AcademySessionSize, type Track } from '../types';
 import { seededShuffle } from './random';
+
+export const ACADEMY_MAP_STOPS = [
+  'Club gate',
+  'Practice wall',
+  'Grass path',
+  'Town court',
+  'Coach deck',
+  'Cup match',
+] as const;
+
+const academyMapKey = (track: Track, count: AcademySessionSize) => `tennis-iq:academy-map:${track}:${count}`;
+
+export function readAcademyMapStop(track: Track, count: AcademySessionSize): number {
+  try {
+    const value = Number(globalThis.localStorage?.getItem(academyMapKey(track, count)));
+    return Number.isInteger(value) && value >= 1 ? Math.min(value, ACADEMY_MAP_STOPS.length) : 1;
+  } catch {
+    return 1;
+  }
+}
+
+export function advanceAcademyMapStop(track: Track, count: AcademySessionSize): number {
+  const next = Math.min(readAcademyMapStop(track, count) + 1, ACADEMY_MAP_STOPS.length);
+  try {
+    globalThis.localStorage?.setItem(academyMapKey(track, count), String(next));
+  } catch {
+    /* storage unavailable: progress still appears for the current recap only */
+  }
+  return next;
+}
 
 /**
  * Picks `count` items. Consecutive seeds walk through one seeded

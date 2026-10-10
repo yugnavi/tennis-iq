@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { ROUTES } from '../app/App';
 import { ScenePanel } from '../components/court';
@@ -16,6 +17,7 @@ import {
   TopBar,
   type ReadySession,
 } from '../components/ui';
+import { ACADEMY_MAP_STOPS, advanceAcademyMapStop, readAcademyMapStop } from '../game/academy';
 import { useAcademySession } from '../hooks/game';
 import {
   ACADEMY_SESSION_SIZE,
@@ -36,12 +38,49 @@ function parseSessionSize(value: string | null): AcademySessionSize {
   return ACADEMY_SESSION_SIZES.includes(n as AcademySessionSize) ? (n as AcademySessionSize) : ACADEMY_SESSION_SIZE;
 }
 
-function Recap({ state }: { state: AcademySessionState }) {
+function AcademyMapRow({ stop }: { stop: number }) {
+  return (
+    <ol aria-label={`Academy map stop ${stop} of ${ACADEMY_MAP_STOPS.length}`} className="mt-4 grid grid-cols-6 gap-1">
+      {ACADEMY_MAP_STOPS.map((label, index) => {
+        const number = index + 1;
+        const unlocked = number <= stop;
+        const current = number === stop;
+        return (
+          <li key={label} className="min-w-0">
+            <span
+              title={label}
+              className={`font-pixel flex aspect-square items-center justify-center border-2 text-xs font-bold ${
+                current
+                  ? 'border-ball bg-cta-500 text-white shadow-[0_4px_0_#0a151e]'
+                  : unlocked
+                    ? 'border-navy-800 bg-ball text-navy-950'
+                    : 'border-navy-700 bg-navy-800 text-white/40'
+              }`}
+            >
+              {number}
+            </span>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
+function Recap({ state, track, count }: { state: AcademySessionState; track: Track; count: AcademySessionSize }) {
   const correct = state.results.filter((r) => r.isCorrect).length;
   const total = state.results.length || state.questions.length || ACADEMY_SESSION_SIZE;
   const xp = state.results.reduce((sum, r) => sum + r.awards.reduce((s, a) => s + a.xp, 0), 0);
   const rating = state.results.reduce((sum, r) => sum + (r.ranked ? r.ratingDelta : 0), 0);
   const anyRanked = state.results.some((r) => r.ranked);
+  const perfect = correct === total && total > 0;
+  const [mapStop, setMapStop] = useState(() => readAcademyMapStop(track, count));
+  const advanced = useRef(false);
+
+  useEffect(() => {
+    if (!perfect || advanced.current) return;
+    advanced.current = true;
+    setMapStop(advanceAcademyMapStop(track, count));
+  }, [perfect, track, count]);
 
   return (
     <section aria-labelledby="recap-heading" className="flex flex-col gap-4">
@@ -53,7 +92,7 @@ function Recap({ state }: { state: AcademySessionState }) {
           {correct}/{total}
         </p>
         <p className="mt-1 font-semibold">
-          {correct === total ? 'Perfect session!' : correct >= total / 2 ? 'Nice work!' : 'Good effort — every answer teaches something.'}
+          {perfect ? 'Perfect run! The map moved forward.' : correct >= total / 2 ? 'Nice work!' : 'Good effort - every answer teaches something.'}
         </p>
         <div className="mt-3 flex flex-wrap justify-center gap-2 text-sm font-bold">
           <span className="bg-cta-500/15 px-3 py-1 text-cta-700">{signed(xp)} XP</span>
@@ -63,6 +102,12 @@ function Recap({ state }: { state: AcademySessionState }) {
             <span className="bg-navy-700/10 px-3 py-1 text-navy-800">Unranked practice</span>
           )}
         </div>
+        <AcademyMapRow stop={mapStop} />
+        <p className="mt-3 text-sm font-bold text-ink/70">
+          {perfect
+            ? `Current stop: ${ACADEMY_MAP_STOPS[mapStop - 1]}`
+            : `Score ${total}/${total} to advance from ${ACADEMY_MAP_STOPS[mapStop - 1]}.`}
+        </p>
       </Card>
 
       <Card as="section" aria-labelledby="recap-list-heading">
@@ -102,11 +147,17 @@ function Recap({ state }: { state: AcademySessionState }) {
 function AcademyPlay({ track, count, session }: { track: Track; count: AcademySessionSize; session: ReadySession }) {
   const state = useAcademySession(track, count);
   const total = state.questions.length || count;
+  const mapStop = readAcademyMapStop(track, count);
   const title = `${TRACK_LABELS[track].title} Academy`;
   const counter =
     state.status === 'question' || state.status === 'feedback' ? (
-      <span className="pixel-chip px-2 py-1 font-semibold tabular-nums">
-        Q {state.index + 1}/{total}
+      <span className="flex gap-2">
+        <span className="pixel-chip px-2 py-1 font-semibold tabular-nums">
+          Q {state.index + 1}/{total}
+        </span>
+        <span className="pixel-chip px-2 py-1 font-semibold tabular-nums">
+          Stop {mapStop}/{ACADEMY_MAP_STOPS.length}
+        </span>
       </span>
     ) : null;
 
@@ -116,7 +167,7 @@ function AcademyPlay({ track, count, session }: { track: Track; count: AcademySe
   } else if (state.status === 'error') {
     body = <ErrorState message={state.error ?? 'Could not load this session.'} onRetry={state.restart} />;
   } else if (state.status === 'recap') {
-    body = <Recap state={state} />;
+    body = <Recap state={state} track={track} count={count} />;
   } else if (state.current) {
     const c = state.current;
     const result = state.status === 'feedback' ? state.lastResult : undefined;
