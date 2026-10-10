@@ -4,7 +4,6 @@ import { CourtView } from '../components/court';
 import { sfx } from '../lib/audio/music';
 import {
   answerStateFor,
-  Button,
   ButtonLink,
   ErrorState,
   formatUtcDate,
@@ -61,7 +60,7 @@ function CompactQuestion({
   return (
     <section
       aria-labelledby={`daily-prompt-${challenge.id}`}
-      className="pixel-card relative z-10 flex max-h-[48svh] min-w-0 flex-col gap-2 overflow-hidden bg-card p-3 text-ink"
+      className="pixel-card relative z-10 flex min-w-0 flex-col gap-2 bg-card p-3 text-ink"
     >
       <div className="min-w-0">
         <p className="font-pixel text-[11px] font-bold uppercase tracking-wide text-ink/60">Today’s Question</p>
@@ -86,19 +85,20 @@ function CompactQuestion({
                       }
                 }
                 disabled={locked}
+                aria-label={`Option ${LETTERS[index] ?? index + 1}: ${option.label}`}
                 data-state={state}
                 className={
-                  'flex min-h-10 w-full min-w-0 items-center gap-2 border-2 px-2 py-1.5 text-left text-xs leading-tight text-ink shadow-sm ' +
+                  'pixel-answer-choice flex min-h-11 w-full min-w-0 items-center gap-2 px-2 py-1.5 text-left text-xs leading-tight text-ink ' +
                   'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ball disabled:cursor-default ' +
                   (state === 'correct'
-                    ? 'border-correct bg-[#dcf2e2]'
+                    ? 'bg-[#dcf2e2] text-correct'
                     : state === 'wrong'
-                      ? 'border-wrong bg-[#f8e1dc]'
+                      ? 'bg-[#f8e1dc] text-wrong'
                       : state === 'selected'
-                        ? 'border-cta-500 bg-[#dcf2e2]'
+                        ? 'bg-[#dcf2e2]'
                         : state === 'disabled'
-                          ? 'border-transparent bg-white/80 opacity-70'
-                          : 'border-transparent bg-white hover:border-cta-500')
+                          ? 'bg-white/80 opacity-70'
+                          : 'bg-white hover:bg-card')
                 }
               >
                 <span className="font-pixel flex h-7 w-7 shrink-0 items-center justify-center bg-[#e9ece4] text-sm font-bold text-ink">
@@ -123,15 +123,19 @@ function CompactResult({
   challenge,
   result,
   recordedNow,
-  onRetry,
 }: {
   challenge: PublicChallenge;
   result: AnswerResult;
   recordedNow: boolean;
-  onRetry(): void;
 }) {
   const correct = challenge.options.find((option) => option.id === result.correctOptionId);
   const chosen = challenge.options.find((option) => option.id === result.chosenOptionId);
+  const headline = result.isCorrect ? 'Great read!' : 'Not quite';
+  const reinforcement = result.isCorrect
+    ? recordedNow
+      ? 'You solved today’s puzzle and kept your momentum going.'
+      : 'Nice answer. This replay still sharpens your Tennis IQ.'
+    : 'Good rep. Review the best answer and take the next point.';
   useEffect(() => {
     sfx.answer(result.isCorrect);
   }, [result.challengeId, result.chosenOptionId, result.isCorrect]);
@@ -139,16 +143,19 @@ function CompactResult({
   return (
     <section
       aria-label="Answer feedback"
-      className="pixel-card relative z-10 flex max-h-[50svh] min-w-0 flex-col gap-2 overflow-hidden bg-card p-3 text-ink"
+      className="pixel-card relative z-10 flex min-w-0 flex-col gap-2 bg-card p-3 text-ink"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className={`font-pixel text-lg font-bold leading-tight ${result.isCorrect ? 'text-correct' : 'text-wrong'}`}>
             <span aria-hidden="true">{result.isCorrect ? '✓ ' : '✗ '}</span>
-            {result.isCorrect ? 'Correct!' : 'Not quite'}
+            {headline}
           </p>
           <p className="mt-1 text-xs font-semibold text-ink/70">
             {recordedNow ? 'Daily reward recorded' : 'Practice replay'}
+          </p>
+          <p className={`mt-1 text-sm font-bold leading-snug ${result.isCorrect ? 'text-correct' : 'text-ink/75'}`}>
+            {reinforcement}
           </p>
         </div>
         <div className="shrink-0 text-right text-xs font-bold text-cta-700">
@@ -158,19 +165,15 @@ function CompactResult({
         </div>
       </div>
       <div className="bg-white px-2.5 py-2 text-sm font-semibold shadow-sm">
-        <p className="text-xs uppercase tracking-wide text-ink/55">Best answer</p>
+        <p className="text-xs uppercase tracking-wide text-ink/55">{result.isCorrect ? 'Your winning answer' : 'Best answer'}</p>
         <p className="answer-clamp mt-0.5">{correct?.label ?? result.correctOptionId}</p>
         {!result.isCorrect && chosen && <p className="answer-clamp mt-1 text-xs text-wrong">Your pick: {chosen.label}</p>}
       </div>
-      <p className="answer-clamp text-sm leading-snug text-ink/80">{result.explanation}</p>
-      <div className="grid grid-cols-2 gap-2 pt-1">
-        <Button onClick={onRetry} size="md">
-          Retry
-        </Button>
-        <ButtonLink to={ROUTES.home} variant="secondary" size="md">
-          Home
-        </ButtonLink>
-      </div>
+      <p className="text-sm leading-snug text-ink/80">{result.explanation}</p>
+      <p className="text-xs font-semibold text-ink/65">Head back home when you’re ready for the next challenge.</p>
+      <ButtonLink to={ROUTES.home} variant="secondary" size="md">
+        Back home
+      </ButtonLink>
     </section>
   );
 }
@@ -189,7 +192,7 @@ function DailyPlay({ session }: { session: ReadySession }) {
     const c = daily.challenge;
     const recordedNow = result?.dailyRecorded === true;
     body = (
-      <div className="daily-playfield relative isolate flex min-w-0 flex-col justify-between gap-3 overflow-hidden">
+      <div className="daily-playfield relative isolate flex min-w-0 flex-col justify-between gap-3">
         <CourtView
           scene={c.court}
           highlight={result ? 'path' : 'none'}
@@ -207,7 +210,7 @@ function DailyPlay({ session }: { session: ReadySession }) {
           </div>
         </div>
         {result ? (
-          <CompactResult challenge={c} result={result} recordedNow={recordedNow} onRetry={state.retry} />
+          <CompactResult challenge={c} result={result} recordedNow={recordedNow} />
         ) : (
           <CompactQuestion
             challenge={c}
@@ -225,7 +228,7 @@ function DailyPlay({ session }: { session: ReadySession }) {
   }
 
   return (
-    <Page court="indoor" header={<TopBar title="Daily Puzzle" backTo={ROUTES.home} />} className="gap-0 overflow-hidden">
+    <Page court="indoor" header={<TopBar title="Daily Puzzle" backTo={ROUTES.home} />} className="gap-0">
       <StatusBanner status={session.status} />
       {body}
     </Page>

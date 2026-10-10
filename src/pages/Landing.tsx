@@ -14,7 +14,7 @@ const HERO_VARS = {
 } as CSSProperties;
 
 const FEATURES: { icon: IconName; text: string }[] = [
-  { icon: 'book', text: 'Learn tactics' },
+  { icon: 'book', text: 'Learn rules' },
   { icon: 'trophy', text: 'Win tie\u2011breaks' }, // non-breaking hyphen keeps "tie‑breaks" together
   { icon: 'star', text: 'Grow your\u00a0IQ' }, // keeps "your IQ" on one line
 ];

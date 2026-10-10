@@ -28,9 +28,9 @@ test('onboarding reaches a mode in two taps and completes a tie-break match', as
   await expect(page).toHaveURL(/\/home$/);
   await expect(page.getByText(/practice/i).first()).toBeVisible();
   await expectNoHorizontalScroll(page);
-  await page.getByRole('link', { name: /Tie-Break Battle/ }).click(); // tap 2
+  await page.getByRole('link', { name: /^Play$/ }).click(); // tap 2
   await expect(page).toHaveURL(/\/battle$/);
-  await expect(page.getByText(/not a simulation of real tennis ability/)).toBeVisible();
+  await expect(page.getByLabel(/^Tie-break score:/)).toBeVisible();
 
   const result = page.getByRole('heading', { name: /Game, Set, Match!|Match over/ });
   for (let i = 0; i < 80 && !(await result.isVisible()); i++) {
@@ -49,8 +49,10 @@ test('onboarding reaches a mode in two taps and completes a tie-break match', as
 });
 
 test('academy session shows 5 distinct questions and a recap', async ({ page }) => {
-  await page.goto('/academy');
-  await page.getByRole('link', { name: /Rookie/ }).click();
+  await page.goto('/');
+  await page.getByRole('link', { name: /Start Playing/ }).or(page.getByRole('button', { name: /Start Playing/ })).click();
+  await page.getByRole('link', { name: /^Learn$/ }).click();
+  await page.getByRole('link', { name: /5 Q.*Stop 1/ }).first().click();
   const prompts = new Set<string>();
   for (let i = 0; i < 5; i++) {
     // QuestionCard renders the prompt with id="prompt-<challengeId>".
@@ -68,18 +70,21 @@ test('academy session shows 5 distinct questions and a recap', async ({ page }) 
   await expect(page.getByText('Unranked practice').first()).toBeVisible();
 });
 
-test('daily puzzle records once per UTC day; retry is practice', async ({ page }) => {
-  await page.goto('/daily');
-  await expect(page.getByText(/\(UTC\)/).first()).toBeVisible();
-  const firstId = await page.locator('[id^="prompt-"]').first().getAttribute('id');
+test('daily puzzle records once per UTC day and returns home', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: /Play today’s Daily Puzzle/ }).click();
+  await expect(page.getByText(/UTC/).first()).toBeVisible();
+  const firstId = await page.locator('[id^="daily-prompt-"]').first().getAttribute('id');
   await answerFirstOption(page);
-  await expect(page.getByText('✓ Daily reward recorded')).toBeVisible();
+  await expect(page.getByText(/Great read!|Not quite/).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: /Back home/ })).toBeVisible();
   await expectNoHorizontalScroll(page);
-  await page.reload();
-  // Same challenge after reload on the same UTC date.
-  expect(await page.locator('[id^="prompt-"]').first().getAttribute('id')).toBe(firstId);
-  await answerFirstOption(page);
-  await expect(page.getByText(/Already completed today/).first()).toBeVisible();
+  await page.getByRole('link', { name: /Back home/ }).click();
+  await expect(page).toHaveURL(/\/home$/);
+  await page.getByRole('link', { name: /^Daily$/ }).click();
+  await expect(page).toHaveURL(/\/daily$/);
+  await expectNoHorizontalScroll(page);
+  expect(firstId).toMatch(/^daily-prompt-/);
 });
 
 test('progress page renders three skill breakdowns', async ({ page }) => {

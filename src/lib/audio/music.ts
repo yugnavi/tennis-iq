@@ -1,7 +1,7 @@
 /**
  * Background chiptune synthesized with the Web Audio API (no audio files to ship or license).
- * Off by default; the on/off preference is remembered per browser. Browsers block audio
- * until a user gesture, so a remembered "on" starts at the first tap.
+ * On by default; the on/off preference is remembered per browser. Browsers block audio
+ * until a user gesture, so an enabled track starts at the first tap.
  */
 
 const STORAGE_KEY = 'tennis-iq-music';
@@ -39,9 +39,9 @@ type Listener = (on: boolean) => void;
 
 function readPref(): boolean {
   try {
-    return localStorage.getItem(STORAGE_KEY) === 'on';
+    return localStorage.getItem(STORAGE_KEY) !== 'off';
   } catch {
-    return false;
+    return true;
   }
 }
 

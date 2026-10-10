@@ -37,17 +37,19 @@ function RatingCard({ profile }: { profile: Profile | null }) {
   const { current, next, progress } = rankFor(rating);
   return (
     <section aria-labelledby="rating-heading" className="pixel-card bg-card p-4 text-ink">
-      <div className="flex items-center gap-3">
-        <Badge name={current.badge} size={68} />
+      <div className="grid min-w-0 grid-cols-[56px_minmax(0,1fr)] items-center gap-2 min-[380px]:grid-cols-[68px_minmax(0,1fr)_auto] min-[380px]:gap-3">
+        <Badge name={current.badge} size={68} className="h-14 w-14 min-[380px]:h-[68px] min-[380px]:w-[68px]" />
         <div className="min-w-0 flex-1">
           <h2 id="rating-heading" className="font-pixel text-xs font-semibold uppercase tracking-wide text-ink/60">
             Tennis IQ Rating
           </h2>
-          <p className="font-pixel text-5xl font-extrabold leading-tight tabular-nums">{profile ? rating : '—'}</p>
+          <p className="font-pixel max-w-full overflow-visible text-[clamp(2.5rem,13vw,3.25rem)] font-extrabold leading-none tabular-nums">
+            {profile ? rating : '—'}
+          </p>
           <p className="font-pixel text-lg font-semibold text-cta-700">{current.title}</p>
         </div>
         {next && (
-          <div className="shrink-0 border-l-4 border-card-line pl-3 text-right text-xs text-ink/65">
+          <div className="col-span-2 mt-2 border-t-4 border-card-line pt-2 text-right text-xs text-ink/65 min-[380px]:col-span-1 min-[380px]:mt-0 min-[380px]:border-l-4 min-[380px]:border-t-0 min-[380px]:pl-3 min-[380px]:pt-0">
             <p>Next rank</p>
             <p className="font-bold text-ink">{next.title}</p>
             <p className="tabular-nums">{next.min}</p>
