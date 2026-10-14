@@ -227,5 +227,5 @@ export default function AcademySessionPage() {
     );
   }
 
-  return <SessionGate>{(session) => <AcademyPlay key={`${parsed.data}:${count}`} track={parsed.data} count={count} session={session} />}</SessionGate>;
+  return <SessionGate requireGoogle>{(session) => <AcademyPlay key={`${parsed.data}:${count}`} track={parsed.data} count={count} session={session} />}</SessionGate>;
 }

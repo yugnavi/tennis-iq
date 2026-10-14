@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../app/App';
-import { Badge, Page, TopBar } from '../components/ui';
+import { Badge, Page, RatingChip, SessionGate, TopBar } from '../components/ui';
 import { ACADEMY_MAP_STOPS, readAcademyMapStop } from '../game/academy';
 import { ACADEMY_SESSION_SIZES, TRACK_LABELS, TRACKS, type Track } from '../types';
 
@@ -47,36 +47,40 @@ function AcademyMapPreview({ track }: { track: Track }) {
 
 export default function AcademyTracksPage() {
   return (
-    <Page nav court="clay" header={<TopBar title="Academy" backTo={ROUTES.home} />}>
-      <p className="pixel-chip px-3 py-2 text-sm text-white/85">Perfect scores move you to the next map stop.</p>
-      <ul className="flex flex-col gap-3">
-        {TRACKS.map((t) => (
-          <li key={t}>
-            <div className="pixel-card flex min-w-0 flex-col gap-3 bg-card p-3 text-ink">
-              <div className="flex min-w-0 items-center gap-3">
-                <Badge name={t} size={56} />
-                <span className="min-w-0 flex-1">
-                  <span className="font-pixel block text-lg font-bold">{TRACK_LABELS[t].title}</span>
-                  <span className="block text-sm text-ink/75">{TRACK_LABELS[t].blurb}</span>
-                </span>
-              </div>
-              <AcademyMapPreview track={t} />
-              <div className="grid grid-cols-3 gap-2" aria-label={`${TRACK_LABELS[t].title} session length`}>
-                {ACADEMY_SESSION_SIZES.map((count) => (
-                  <Link
-                    key={count}
-                    to={ROUTES.academyTrack(t, count)}
-                    className="btn-pixel-secondary flex min-h-12 flex-col items-center justify-center px-2 py-1 text-sm leading-tight focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ball"
-                  >
-                    <span>{count} Q</span>
-                    <span className="font-sans text-[11px] font-bold tracking-normal text-ink/70">Stop {readAcademyMapStop(t, count)}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </Page>
+    <SessionGate requireGoogle>
+      {(session) => (
+        <Page nav court="clay" header={<TopBar title="Academy" backTo={ROUTES.home} right={<RatingChip profile={session.profile} />} />}>
+          <p className="pixel-chip px-3 py-2 text-sm text-white/85">Perfect scores move you to the next map stop.</p>
+          <ul className="flex flex-col gap-3">
+            {TRACKS.map((t) => (
+              <li key={t}>
+                <div className="pixel-card flex min-w-0 flex-col gap-3 bg-card p-3 text-ink">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <Badge name={t} size={56} />
+                    <span className="min-w-0 flex-1">
+                      <span className="font-pixel block text-lg font-bold">{TRACK_LABELS[t].title}</span>
+                      <span className="block text-sm text-ink/75">{TRACK_LABELS[t].blurb}</span>
+                    </span>
+                  </div>
+                  <AcademyMapPreview track={t} />
+                  <div className="grid grid-cols-3 gap-2" aria-label={`${TRACK_LABELS[t].title} session length`}>
+                    {ACADEMY_SESSION_SIZES.map((count) => (
+                      <Link
+                        key={count}
+                        to={ROUTES.academyTrack(t, count)}
+                        className="btn-pixel-secondary flex min-h-12 flex-col items-center justify-center px-2 py-1 text-sm leading-tight focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ball"
+                      >
+                        <span>{count} Q</span>
+                        <span className="font-sans text-[11px] font-bold tracking-normal text-ink/70">Stop {readAcademyMapStop(t, count)}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Page>
+      )}
+    </SessionGate>
   );
 }

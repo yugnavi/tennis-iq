@@ -17,8 +17,8 @@ export function createAccountService(
       const { data } = await client.auth.getSession();
       const user = data.session?.user;
       const google = user?.identities?.find((i) => i.provider === 'google');
-      if (!user || user.is_anonymous || !google) return { kind: 'guest' };
-      const meta = google.identity_data ?? {};
+      if (!user || user.is_anonymous) return { kind: 'guest' };
+      const meta = google?.identity_data ?? user.user_metadata ?? {};
       return {
         kind: 'google',
         email: user.email ?? (meta.email as string | undefined),

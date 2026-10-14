@@ -13,6 +13,7 @@ import {
   TopBar,
   type ReadySession,
 } from '../components/ui';
+import { FeedbackDrawer, ProfileDrawer } from './Progress';
 import type { DailyPuzzle, Profile, ProgressSummary } from '../types';
 
 type Load<T> = { kind: 'loading' } | { kind: 'error' } | { kind: 'ok'; value: T };
@@ -169,7 +170,7 @@ function HomeContent({ session }: { session: ReadySession }) {
 
 export default function HomePage() {
   return (
-    <SessionGate>
+    <SessionGate requireGoogle>
       {(session) => (
         <Page
           nav
@@ -182,6 +183,8 @@ export default function HomePage() {
             />
           }
         >
+          {session.service.account && <ProfileDrawer account={session.service.account} />}
+          <FeedbackDrawer session={session} />
           <HomeContent session={session} />
         </Page>
       )}

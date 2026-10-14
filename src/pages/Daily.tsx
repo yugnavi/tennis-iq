@@ -236,5 +236,5 @@ function DailyPlay({ session }: { session: ReadySession }) {
 }
 
 export default function DailyPage() {
-  return <SessionGate>{(session) => <DailyPlay session={session} />}</SessionGate>;
+  return <SessionGate requireGoogle>{(session) => <DailyPlay session={session} />}</SessionGate>;
 }

@@ -186,5 +186,5 @@ function BattlePlay({ session }: { session: ReadySession }) {
 }
 
 export default function BattlePage() {
-  return <SessionGate>{(session) => <BattlePlay session={session} />}</SessionGate>;
+  return <SessionGate requireGoogle>{(session) => <BattlePlay session={session} />}</SessionGate>;
 }

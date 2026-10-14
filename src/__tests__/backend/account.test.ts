@@ -18,6 +18,12 @@ const googleUser = {
   email: 'p@example.com',
   identities: [{ provider: 'google', identity_data: { full_name: 'Pat' } }],
 };
+const restoredGoogleUser = {
+  is_anonymous: false,
+  email: 'restored@example.com',
+  identities: [],
+  user_metadata: { name: 'Restored Player' },
+};
 const redirect = () => 'https://app.test/progress';
 
 describe('account service', () => {
@@ -27,6 +33,11 @@ describe('account service', () => {
       kind: 'google',
       email: 'p@example.com',
       name: 'Pat',
+    });
+    await expect(createAccountService(client(restoredGoogleUser).client, redirect).getAccount()).resolves.toEqual({
+      kind: 'google',
+      email: 'restored@example.com',
+      name: 'Restored Player',
     });
   });
 

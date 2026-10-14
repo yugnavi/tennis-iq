@@ -3,6 +3,7 @@ dist
 .env
 .env.local
 .env.*.local
+client_secret_*.json
 .DS_Store
 .claude
 .mcp.json

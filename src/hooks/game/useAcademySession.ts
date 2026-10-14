@@ -5,6 +5,7 @@ import { ACADEMY_SESSION_SIZE, type AcademySessionSize, type AcademySessionState
 import { errorMessage, useSyncStore } from './shared';
 
 const seedKey = (track: Track, count: number) => `tennis-iq:academy-seed:${track}:${count}`;
+const recentKey = (track: Track, count: number) => `tennis-iq:academy-recent:${track}:${count}`;
 
 export function readAcademySeed(track: Track, count: number = ACADEMY_SESSION_SIZE): number {
   try {
@@ -29,6 +30,23 @@ function claimAcademySeed(track: Track, count: number): number {
   const seed = readAcademySeed(track, count);
   advanceAcademySeed(track, count, seed + 1);
   return seed;
+}
+
+function readRecentAcademyIds(track: Track, count: number): Set<string> {
+  try {
+    const parsed = JSON.parse(globalThis.localStorage?.getItem(recentKey(track, count)) ?? '[]');
+    return new Set(Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === 'string') : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function writeRecentAcademyIds(track: Track, count: number, ids: string[]): void {
+  try {
+    globalThis.localStorage?.setItem(recentKey(track, count), JSON.stringify(ids.slice(0, count)));
+  } catch {
+    /* storage unavailable: question rotation still works for this session */
+  }
 }
 
 type Internal = {
@@ -57,13 +75,18 @@ export function useAcademySession(track: Track, count: AcademySessionSize = ACAD
       .listChallenges(track)
       .then((pool) => {
         if (myGen !== gen.current) return;
+        const trackPool = pool.filter((c) => c.track === track);
+        const recent = readRecentAcademyIds(track, count);
+        const freshPool = trackPool.filter((c) => !recent.has(c.id));
+        const eligible = freshPool.length >= Math.min(count, trackPool.length) ? freshPool : trackPool;
         const questions = pickAcademyQuestions(
-          pool.filter((c) => c.track === track),
+          eligible,
           seed,
           count,
-          { allowRepeat: true },
+          { allowRepeat: count > eligible.length },
         );
         if (questions.length === 0) throw new Error('No questions are available for this track yet.');
+        writeRecentAcademyIds(track, count, questions.map((q) => q.id));
         set({ ...initial(), status: 'question', seed, questions });
       })
       .catch((e: unknown) => {

@@ -160,8 +160,8 @@ describe('pages', () => {
     renderAt('/home', '/home', <Home />);
     expect(await screen.findByText(/9 Oct 2026 \(UTC\)/)).toBeInTheDocument();
     expect(screen.getByText('Practice mode — unranked (Supabase not configured)')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /tie-break battle/i })).toHaveAttribute('href', '/battle');
-    expect(screen.getByText(/prototype knowledge score/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Play' })).toHaveAttribute('href', '/battle');
+    expect(screen.getByRole('heading', { name: 'Tennis IQ Rating' })).toBeInTheDocument();
   });
 
   it('Academy session renders court, counter and unranked feedback', async () => {
@@ -184,10 +184,10 @@ describe('pages', () => {
     expect(screen.getByRole('button', { name: 'Play again' })).toBeInTheDocument();
   });
 
-  it('Battle shows scoreboard, disclaimer and hides path before answering', async () => {
+  it('Battle shows scoreboard and hides path before answering', async () => {
     renderAt('/battle', '/battle', <Battle />);
-    expect(await screen.findByText(/not a simulation of real tennis ability/i)).toBeInTheDocument();
-    expect(screen.getByLabelText('Tie-break score: You 6, Opponent 5')).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Tie-Break Battle' })).toBeInTheDocument();
+    expect(screen.getByLabelText('Score: You 6, Opponent 5')).toBeInTheDocument();
     expect(screen.queryByTestId('court-path')).toBeNull();
     expect(screen.getAllByRole('button', { name: /option/i })).toHaveLength(4);
   });
@@ -213,14 +213,13 @@ describe('pages', () => {
     expect(screen.getByRole('button', { name: 'Rematch' })).toBeInTheDocument();
   });
 
-  it('Daily shows UTC date, streak, practice-retry note and share fallback', async () => {
+  it('Daily shows UTC date, streak and back-home feedback', async () => {
     renderAt('/daily', '/daily', <Daily />);
-    expect(await screen.findByRole('heading', { name: /Daily Puzzle · 9 Oct 2026/ })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Daily Puzzle' })).toBeInTheDocument();
+    expect(screen.getByText(/9 Oct 2026/)).toBeInTheDocument();
     expect(screen.getByText(/3-day streak/)).toBeInTheDocument();
-    expect(screen.getByText(/Already completed today — this retry is for practice/)).toBeInTheDocument();
-    // jsdom has no navigator.share → readonly textarea fallback
-    expect(screen.getByRole('textbox')).toHaveValue('Tennis IQ Daily 2026-10-09 ✓');
-    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
+    expect(screen.getByText(/Nice answer/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Back home' })).toHaveAttribute('href', '/home');
   });
 
   it('Progress shows totals and three skill bars', async () => {

@@ -19,7 +19,7 @@ const FEATURES: { icon: IconName; text: string }[] = [
   { icon: 'star', text: 'Grow your\u00a0IQ' }, // keeps "your IQ" on one line
 ];
 
-/** Tap 1: Start Playing → Home. Tap 2: a mode. No signup. */
+/** Tap 1: Start Playing → Google-gated Home. Tap 2: a mode. */
 export default function LandingPage() {
   return (
     <div className="min-h-dvh bg-navy-900 text-white">
@@ -69,7 +69,7 @@ export default function LandingPage() {
           <ButtonLink to={ROUTES.home} variant="pixel" size="lg" block className="max-w-[19rem]">
             Start Playing
           </ButtonLink>
-          <p className="text-xs text-white/70">No signup · Free · 2-minute rounds</p>
+          <p className="text-xs text-white/70">Google sign-in · Free · 2-minute rounds</p>
           <Link
             to={ROUTES.daily}
             className="inline-flex min-h-11 items-center rounded-lg px-3 font-semibold text-ball underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ball"

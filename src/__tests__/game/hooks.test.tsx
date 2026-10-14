@@ -47,6 +47,20 @@ describe('useAcademySession', () => {
     expect(second.some((id) => !seen.includes(id))).toBe(true);
   });
 
+  it('avoids the previous session when enough questions remain', async () => {
+    const fake = createFakeService();
+    const firstHook = renderHook(() => useAcademySession('rookie', 5), { wrapper: wrapperFor(fake) });
+    await waitFor(() => expect(firstHook.result.current.status).toBe('question'));
+    const first = firstHook.result.current.questions.map((q) => q.id);
+    firstHook.unmount();
+
+    const secondHook = renderHook(() => useAcademySession('rookie', 5), { wrapper: wrapperFor(fake) });
+    await waitFor(() => expect(secondHook.result.current.status).toBe('question'));
+    const second = secondHook.result.current.questions.map((q) => q.id);
+    expect(second).toHaveLength(5);
+    expect(second.some((id) => first.includes(id))).toBe(false);
+  });
+
   it('guards against double submission', async () => {
     const fake = createFakeService();
     const { result } = renderHook(() => useAcademySession('rookie'), { wrapper: wrapperFor(fake) });
